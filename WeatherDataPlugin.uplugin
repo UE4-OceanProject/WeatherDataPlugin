@@ -1,0 +1,21 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "WeatherDataPlugin",
+  "Description": "WeatherData consumeable by other plugins. Includes realWeatherData weather data import",
+  "Category": "WeatherData",
+  "CreatedBy": "EvoPulse",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "SupportURL": "",
+  "EnabledByDefault": true,
+  "CanContainContent": true,
+  "Modules": [
+    {
+      "Name": "WeatherDataPlugin",
+      "Type": "RunWeatherData",
+      "LoadingPhase": "PreDefault"
+    }
+  ]
+}
