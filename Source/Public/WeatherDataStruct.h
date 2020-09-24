@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WeatherDataDateStruct.generated.h"
+#include "WeatherDataStruct.generated.h"
 
 
 USTRUCT(BlueprintType)

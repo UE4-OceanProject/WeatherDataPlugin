@@ -8,7 +8,7 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(WeatherDataPlugin, Log, All);
 
-class WeatherDataPlugin_API FWeatherDataPlugin : public IModuleInterface
+class WEATHERDATAPLUGIN_API FWeatherDataPlugin : public IModuleInterface
 {
 public:
 	/** IModuleInterface implementation */
