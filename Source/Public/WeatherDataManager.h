@@ -23,4 +23,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
 		bool bUseRealtimeWeatherData = false;
 
+	void GetWeatherData(/*location//bUseSystemTime//manualtime)*/);
+
 };
