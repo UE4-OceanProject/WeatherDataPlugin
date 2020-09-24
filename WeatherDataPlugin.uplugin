@@ -14,7 +14,7 @@
   "Modules": [
     {
       "Name": "WeatherDataPlugin",
-      "Type": "RunWeatherData",
+      "Type": "Runtime",
       "LoadingPhase": "PreDefault"
     }
   ]
