@@ -23,6 +23,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
 		bool bUseRealtimeWeatherData = false;
 
+	// Current Weather Data
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+		FWeatherDataStruct CurrentWeatherData;
+
 	void GetWeatherData(/*location//bUseSystemTime//manualtime)*/);
 
 };

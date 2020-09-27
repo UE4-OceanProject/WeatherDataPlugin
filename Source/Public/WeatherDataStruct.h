@@ -5,7 +5,7 @@
 
 
 USTRUCT(BlueprintType)
-struct FWeatherDataDate
+struct FWeatherDataStruct
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -39,9 +39,15 @@ struct FWeatherDataDate
 
 
 	// Fully initialized constructor
-	FWeatherDataDate(int32 InPlaceholder = 0)
+	FWeatherDataStruct(FVector InWindDirection = FVector(0, 1, 0), float InWindSpeed = 13, FVector InSunDirection = FVector(.8,.8,.8), int32 InHumidity = 35,
+		int32 InSeaLevelTemperature = -1, float InPrecipitationRate = 32, float InAirPressure = 32)
 	{
-		//Placeholder = InPlaceholder;
-
+		WindDirection = InWindDirection;
+		WindSpeed = InWindSpeed;
+		SunDirection = InSunDirection;
+		Humidity = InHumidity;
+		SeaLevelTemperature = InSeaLevelTemperature;
+		PrecipitationRate = InPrecipitationRate;
+		AirPressure = InAirPressure;
 	}
 };
