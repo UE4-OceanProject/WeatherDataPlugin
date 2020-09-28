@@ -3,51 +3,85 @@
 #include "CoreMinimal.h"
 #include "WeatherDataStruct.generated.h"
 
+/* human readable weather condition */
+UENUM(BlueprintType)
+enum class EWeatherCondition : uint8
+{
+	W_Min UMETA(Hidden),
+	W_Clear UMETA(DisplayName = "Clear"),
+	W_PartlyCloudy UMETA(DisplayName = "Partially Cloudy"),
+	W_Overcast UMETA(DisplayName = "Overcast Cloud"),
+	W_ThunderStorm UMETA(DisplayName = "Thunder Storm"),
+	W_Raining UMETA(DisplayName = "Raining"),
+	W_Hail UMETA(DisplayName = "Hail"),
+	W_Snowing UMETA(DisplayName = "Snowing"),
+	W_Max  UMETA(Hidden)
+};
 
-USTRUCT(BlueprintType)
+/** Single	Point based weather conditions
+ * 
+ */
+USTRUCT(Blueprintable, BlueprintType)
 struct FWeatherDataStruct
 {
-	GENERATED_USTRUCT_BODY()
+	 GENERATED_USTRUCT_BODY()
+ 
 
-	// Normalized global wind direction.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		FVector WindDirection;
+	/* Normalized global wind direction */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FVector WindDirection;
 
-	// Wind Speed in kmh, (Multiply by 27.7778f to convert to games cm/s.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		float WindSpeed;
+	/* Wind speed in km/h, (Multiply by 27.7778f  to convert to UE4 cm/s) */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float WindSpeed;
 
-	// Normalized global Sun Direction. If Z is less than 0, then the sun is below horizion.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		FVector SunDirection;
+	/* Max wind gust speed in Km/h  */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float WindGustSpeed;
 
-	// Air humidity as a percentage, from 0 - 100%.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		int32 Humidity;
 
-	// Air Temperature in celsius at Sealevel.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		int32 SeaLevelTemperature;
+	/* Normalized global Sun Direction. If Z is less that 0 then sun is bellow horizon */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FVector SunDirection;
 
-	// Rate of Precipitation (rain/snow fall rate) in 0-100. Probably need a manual override control for it.  //Sascha: Pretty sure we can use this for hail rate as well.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		float PrecipitationRate;
+	/* Air humidity as a percentage, from 0 - 100% */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere,meta = (ClampMin = 0, ClampMax = 100, UIMin = 0, UIMax = 100))
+	int32 Humidity;
 
-	// Air pressure hpa, Placeholder in case we need it.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "WeatherData")
-		float AirPressure;
+	/*  Air Temperature in celsius at Sealevel */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = -100, ClampMax = 150, UIMin = -100, UIMax = 150))
+	float SeaLevelTemperature;
+
+	/* Temp at which air can become water saturated, if air temp is at this point and comes in contact with a cooler surface then condensation/dew will form*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = -100, ClampMax = 150, UIMin = -100, UIMax = 150))
+	float DewPoint;
+
+
+	/* Rate of Precipitation (rain/snow fall rate) in 0-100 . Probably need a manual override control for it */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = 0, ClampMax = 100, UIMin = 0, UIMax = 100))
+	float PrecipitationRate;
+
+	/* Air pressure in hpa, Placeholder incase we need it  */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = 0, ClampMax = 2000, UIMin = 0, UIMax = 2000))
+	float AirPressure;
+
+	/* View distance in KM, relates to air clarity   */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ClampMin = 0, ClampMax = 200, UIMin = 0, UIMax = 200))
+	float VisibilityDistance;
 
 
 	// Fully initialized constructor
-	FWeatherDataStruct(FVector InWindDirection = FVector(0, 1, 0), float InWindSpeed = 13, FVector InSunDirection = FVector(.8,.8,.8), int32 InHumidity = 35,
-		int32 InSeaLevelTemperature = -1, float InPrecipitationRate = 32, float InAirPressure = 32)
+	FWeatherDataStruct()
 	{
-		WindDirection = InWindDirection;
-		WindSpeed = InWindSpeed;
-		SunDirection = InSunDirection;
-		Humidity = InHumidity;
-		SeaLevelTemperature = InSeaLevelTemperature;
-		PrecipitationRate = InPrecipitationRate;
-		AirPressure = InAirPressure;
+		WindDirection = FVector::ZeroVector;
+		WindSpeed = 0.f;
+		WindGustSpeed = 0.f;
+		SunDirection = FVector::ZeroVector;
+		Humidity = 0;
+		SeaLevelTemperature = 19.f;
+		DewPoint = 9.f;
+		PrecipitationRate = 0.f;
+		AirPressure = 1000.f;
+		VisibilityDistance = 20.f;
 	}
 };
